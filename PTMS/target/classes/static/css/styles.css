@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+    margin: 0;
+}
+
+.topnav {
+    position: relative;
+    overflow: hidden;
+    background-color: #DF5749;
+}
+
+.topnav img {
+    max-height: 80px;
+    vertical-align: middle;
+}
+
+.topnav #man {
+    margin-left: 75px;
+}
+
+.topnav #hp {
+    margin-left: 75px;
+    max-height: 50px;
+}
+
+.topnav #money {
+    display: inline-block;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 20px;
+    margin-left: 50px;
+    word-spacing: 6px;
+    color: #FFFFFF;
+
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.topnav #coin {
+    max-height: 32px;
+}
+
+.topnav #settings {
+    position: absolute;
+    top: 25%;
+    right: 2%;
+}
+
+.topnav #bell {
+    position: absolute;
+    top: 25%;
+    right: 6%;
+}
+
+.sidenav {
+    height: 110vh;
+    width: 17%;
+    float: left;
+    background-color: #F6F6F6;
+    overflow-x: hidden;
+    padding-top: 65px;
+}
+
+.sidenav_block {
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    border: 2px solid #000000;
+}
+
+.sidenav a {
+    padding: 10px 8px 8px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #000000;
+    display: block;
+    text-align: left;
+
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 37px;
+}
+
+.sidenav a:hover {
+    background: #949494;
+    box-shadow: inset 11px 11px 6px rgba(0, 0, 0, 0.25);
+    color: #FFFFFF;
+}
+
+.sidenav .active {
+    background: #949494;
+    box-shadow: inset 11px 11px 6px rgba(0, 0, 0, 0.25);
+    color: #FFFFFF;
+}
+
+.sidenav img {
+    max-height: 40px;
+    vertical-align: middle;
+}
+
+.sidenav #calendar {
+    border-top: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+}
+
+#subscribe{
+    font-family: 'Montserrat';
+    position: absolute;
+    top: 19%;
+    right: 10%;
+    display: inline-block;
+    outline: 0;
+    border: none;
+    cursor: pointer;
+    padding: 0 24px;
+    border-radius: 50px;
+    min-width: 200px;
+    height: 50px;
+    font-size: 18px;
+    background-color: #fd0;
+    font-weight: 400;
+    color: #222;
+}
+
+.main {
+    width: 80%;
+    float: right;
+    margin: 2% 2% 4% 0;
+}
+
+.main #calendar {
+    height: 100vh;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}

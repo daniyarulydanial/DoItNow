@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit</title>
+    <meta charset="UTF-8">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"/>
+    <script src="https://kit.fontawesome.com/f8ee8b7835.js" crossorigin="anonymous"></script>
+
+    <link href="/css/task.css" rel="stylesheet" media="screen"/>
+    <script src="/js/task.js"></script>
+</head>
+<body>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="compose">
+        <div class="container">
+            <div class="content-container clearfix">
+
+                <div class="row">
+                    <h1 class="content-title">Edit Task</h1>
+
+                    <div th:if="${msg eq 'success'}" class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert"
+                                aria-hidden="true">&times;
+                        </button>
+                        <strong>Success </strong> Task updated
+                    </div>
+                    <div th:if="${msg eq 'same'}" class="alert alert-warning alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert"
+                                aria-hidden="true">&times;
+                        </button>
+                        <strong>Warning !!! </strong> Please update at least one filed
+                    </div>
+                    <div th:if="${msg eq 'fail'}" class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert"
+                                aria-hidden="true">&times;
+                        </button>
+                        <strong>Error !!!  </strong> Unexpected error occurred. Please try later.
+                    </div>
+
+                    <!--/*@thymesVar id="todoForm" type="java"*/-->
+                    <form th:object="${editTask}" th:action="@{/task/editTask}" method="post">
+                        <input type="hidden" th:field="*{id}" th:value="*{id}"/>
+                        <input type="hidden" th:field="*{userId}" th:value="*{userId}"/>
+                        <input type="hidden" th:field="*{status}" th:value="*{status}"/>
+                        <input type="hidden" th:field="*{start}" th:value="*{start}"/>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="todoName2" th:field="*{title}"
+                                       type="text" class="form-control"
+                                       required="required"
+                                       placeholder="Task Name"/>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-4  input-group date" id='startDatePicker'>
+                                    <input th:field="*{start}" type="date" class="form-control" name="taskDate"
+                                           required="required" placeholder="Task Date" id="startDate"/>
+                                    <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar">
+                                    </span>
+                                </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-4  input-group date" id='endDatePicker'>
+                                    <input th:field="*{end}" type="date" class="form-control" name="taskDate"
+                                           required="required" placeholder="Task Date" id="endDate"/>
+                                    <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar">
+                                    </span>
+                                </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" th:field="*{description}" placeholder="Details"
+                                          required="required"></textarea>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="modal-footer">
+                            <div>
+                                <button class="btn btn-success btn-md"><span class="glyphicon glyphicon-send"></span>
+                                    Update
+                                </button>
+                            </div>
+                            <br/>
+                            <div>
+                                <a th:href="@{/list_users}" class="fa fa-arrow-left pull-right"> Back</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <span class="help-block"></span>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+</body>
+</html>
