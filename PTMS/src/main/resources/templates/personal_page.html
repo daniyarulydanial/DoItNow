@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal account page</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"/>
+    <script src="https://kit.fontawesome.com/f8ee8b7835.js" crossorigin="anonymous"></script>
+
+
+    <link href="/css/task.css" rel="stylesheet" media="screen"/>
+    <script src="/js/task.js"></script>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body style="background: white;">
+<div class="topnav">
+    <img src="/images/components/man_icon.png" id="man">
+    <img src="/images/components/health_bar.png" id="hp">
+    <p id="money">1777 <img src="/images/components/dollar.png" id="coin"></p>
+    <form action="/subscribe">
+        <button id="subscribe">Subscribe</button>
+    </form>
+    <img src="/images/components/bell.png" id="bell">
+    <img src="/images/components/settings.png" id="settings">
+</div>
+<div class="sidenav">
+    <div class="sidenav_block">
+        <a href="#" class="active" id="todo"><img src="/images/components/todo_icon_white.png"> To-Do List</a>
+        <a href="/calendarView" id="calendar"><img src="/images/components/calendar_icon_black.png"> Calendar</a>
+        <a href="/store" id="store"><img src="/images/components/store_icon_black.png"> Store</a>
+    </div>
+</div>
+
+<div class="main" style="background: white; margin: 0;">
+    <div class="tab-content">
+        <div class="tab-pane active" id="addTaskTab">
+            <div class="container">
+                <div class="content-container clearfix">
+                    <div class="row">
+                        <h1 class="content-title">Tasks</h1>
+                        <!--star operations messages-->
+                        <div th:if="${msg eq 'success'}" class="alert alert-success alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert"
+                                    aria-hidden="true">&times;
+                            </button>
+                            Task Saved <strong> Successfully</strong>
+                        </div>
+                        <div th:if="${msg eq 'fail'}" class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert"
+                                    aria-hidden="true">&times;
+                            </button>
+                            <strong>Unexpected error occurred !!! Please try later.</strong>
+                        </div>
+                        <div th:if="${msg eq 'active'}" class="alert alert-success alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert"
+                                    aria-hidden="true">&times;
+                            </button>
+                            <strong><h6 th:text="${msgText}"/></strong>
+                        </div>
+                        <div th:if="${msg eq 'active_fail'}" class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert"
+                                    aria-hidden="true">&times;
+                            </button>
+                            <strong>Error !!!</strong> <h6 th:text="${msgText}"/>
+                        </div>
+                        <div th:if="${msg eq 'trash'}" class="alert alert-success alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert"
+                                    aria-hidden="true">&times;
+                            </button>
+                            Task Sent to Trash Box
+                        </div>
+                        <form th:object="${reqTask}" th:action="@{/task/saveTask}" method="post">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input id="taskName" th:field="*{title}" type="text" class="form-control"
+                                           required="required"
+                                           placeholder="Task Name"/>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4  input-group date" id='startDatePicker'>
+                                        <input th:field="*{start}" class="form-control"
+                                               id="startDate" type="date"
+                                               value="2018-02-25T19:24" required
+                                        />
+                                        <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar">
+                                                        </span>
+                                                    </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4  input-group date" id='entDatePicker'>
+                                        <input th:field="*{end}" class="form-control"
+                                               id="endDate" type="date"
+                                               value="2018-02-25T19:24" required
+                                        />
+                                        <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar">
+                                                        </span>
+                                                    </span>
+                                    </div>
+                                </div>
+                                <textarea class="form-control" th:field="*{description}" placeholder="Description"
+                                          required="required"></textarea>
+                                <div class="float-right btn-send">
+                                    <button class="btn btn-success btn-md"><span class="glyphicon glyphicon-send"></span>
+                                        Create
+                                    </button>
+                                </div>
+                            </div>
+                            <br/>
+                        </form>
+                    </div>
+                    <div class="row">
+                        <div class="panel panel-info">
+                            <div class="panel-body">
+                                <table class="table table-bordered  table-striped table-responsive">
+                                    <thead>
+                                    <tr class="btn-info">
+                                        <th>Task Name</th>
+                                        <th>Description</th>
+                                        <th>Start Date</th>
+                                        <th>Task Date</th>
+                                        <th>Operation</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:if="${#lists.isEmpty(allTask)}" class="btn-default">
+                                        <td colspan="5" align="center">No Task Entered Yet!!!</td>
+                                    </tr>
+                                    <tr th:each="task : ${allTask}">
+                                        <td th:text="${task.title}"></td>
+                                        <td th:text="${task.description}"></td>
+                                        <td th:text="${task.start}"></td>
+                                        <td th:text="${task.end}"></td>
+                                        <td th:hidden="${task.id}"></td>
+                                        <td align="center">
+                                            <a th:href="@{/task/edit/{id}(id=${task.id})}" style="text-decoration: none">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
+                                            &nbsp;
+                                            <a th:href="@{/task/delete/{id}(id=${task.id})}">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

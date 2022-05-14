@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>To-Do List</title>
+
+    <link rel="stylesheet" href="/css/styles2.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+</head>
+<body>
+<div class="topnav">
+    <img src="/images/components/man_icon.png" id="man">
+    <img src="/images/components/health_bar.png" id="hp">
+    <p id="money">1777 <img src="/images/components/dollar.png" id="coin"></p>
+    <form action="/subscribe">
+        <button id="subscribe">Subscribe</button>
+    </form>
+    <img src="/images/components/bell.png" id="bell">
+    <img src="/images/components/settings.png" id="settings">
+</div>
+
+<div class="sidenav">
+    <div class="sidenav_block">
+        <a href="/list_users" id="todo"><img src="/images/components/todo_icon_black.png"> To-Do List</a>
+        <a href="#" class="active" id="calendar_icon"><img src="/images/components/calendar_icon_white.png"> Calendar</a>
+        <a href="/store" id="store"><img src="/images/components/store_icon_black.png"> Store</a>
+    </div>
+</div>
+
+<div class="main">
+    <div id="calendar"></div>
+</div>
+
+<p style="display:none;" id="titles" th:text="${titles}"></p>
+<p style="display:none;" id="starts" th:text="${starts}"></p>
+<p style="display:none;" id="ends" th:text="${ends}"></p>
+<script src="/js/script.js"></script>
+</body>
+</html>

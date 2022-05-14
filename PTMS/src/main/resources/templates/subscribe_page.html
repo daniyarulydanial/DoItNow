@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Subscribe Page</title>
+</head>
+<body>
+<div class="topnav">
+    <img src="/images/components/man_icon.png" id="man">
+    <img src="/images/components/health_bar.png" id="hp">
+    <p id="money">1777 <img src="/images/components/dollar.png" id="coin"></p>
+    <form action="/subscribe">
+        <button id="subscribe">Subscribe</button>
+    </form>
+    <img src="/images/components/bell.png" id="bell">
+    <img src="/images/components/settings.png" id="settings">
+</div>
+<div class="sidenav">
+    <div class="sidenav_block">
+        <a href="/list_users" class="active" id="todo"><img src="/images/components/todo_icon_white.png"> To-Do List</a>
+        <a href="/calendarView" id="calendar"><img src="/images/components/calendar_icon_black.png"> Calendar</a>
+        <a href="/store" id="store"><img src="/images/components/store_icon_black.png"> Store</a>
+    </div>
+</div>
+<div class="main">
+    <div class="container">
+        <table class="table table-striped ">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Personal Pro</th>
+                <th scope="col">Personal</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Adding, changing and deleting tasks in the to-do list</td>
+                <td><img src="/images/checkMark.png"></td>
+                <td><img src="/images/checkMark.png"></td>
+            </tr>
+            <tr>
+                <td>Adding priorities, deadline, and name for a task when creating it</td>
+                <td><img src="/images/checkMark.png"></td>
+                <td><img src="/images/checkMark.png"></td>
+            </tr>
+            <tr>
+                <td>Choosing a convenient calendar format weekly/monthly/daily</td>
+                <td><img src="/images/checkMark.png"></td>
+                <td><img src="/images/checkMark.png"></td>
+            </tr>
+            <tr>
+                <td>Enable task repetition (every day or select the desired days on the calendar of the week);</td>
+                <td><img src="/images/checkMark.png"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Showing motivation notifications and removing hp, from the life strip, when deadlines are broken
+                </td>
+                <td><img src="/images/checkMark.png"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Showing motivation notifications and removing hp, from the life strip, when deadlines are broken;
+                </td>
+                <td><img src="/images/checkMark.png"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Showing statistics for the week, month and year if the given time comes from the moment of use</td>
+                <td><img src="/images/checkMark.png"></td>
+                <td></td>
+            </tr>
+            <tr scope="row">
+                <td style="font-size: 18px">Price:</td>
+                <td style="font-size: 18px">999₸</td>
+                <td style="font-size: 18px">0₸</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td>
+                    <div id="smart-button-container">
+                        <div style="text-align: center;">
+                            <div id="paypal-button-container"></div>
+                        </div>
+                    </div>
+                </td>
+                <td></td>
+                <td>
+                    <div>
+                        <a th:href="@{/list_users}" class="fa fa-arrow-left pull-right"
+                           style="text-decoration: none; font-size: 20px"> Back</a>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD"
+        data-sdk-integration-source="button-factory"></script>
+<script>
+    function initPayPalButton() {
+        paypal.Buttons({
+            style: {
+                shape: 'pill',
+                color: 'blue',
+                layout: 'horizontal',
+                label: 'checkout',
+
+            },
+
+            createOrder: function (data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        "description": "asdad",
+                        "amount": {"currency_code": "USD", "value": 10}
+                    }]
+                });
+            },
+
+            onApprove: function (data, actions) {
+                return actions.order.capture().then(function (orderData) {
+
+                    // Full available details
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+
+                    // Show a success message within this page, e.g.
+                    const element = document.getElementById('paypal-button-container');
+                    element.innerHTML = '';
+                    element.innerHTML = '<h3>Thank you for your payment!</h3>';
+
+                    // Or go to another URL:  actions.redirect('thank_you.html');
+
+                });
+            },
+
+            onError: function (err) {
+                console.log(err);
+            }
+        }).render('#paypal-button-container');
+    }
+
+    initPayPalButton();
+</script>
+</body>
+</html>
